@@ -13,5 +13,10 @@
 		<version>2011061200</version>
 	</requires>
 	
+	<screenshot>
+		<description>Image CAPTCHA on registration form</description>
+		<path>screenshots/registration.png</path>
+	</screenshot>
+	
  	<category>ColdTrick</category>
 </plugin_manifest>
