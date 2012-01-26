@@ -3,15 +3,13 @@
 	function image_captcha_init(){
 		
 		// Register a function that provides some default override actions
-		register_plugin_hook('actionlist', 'captcha', 'image_captcha_actionlist_hook');
-		
+		elgg_register_plugin_hook_handler('actionlist', 'captcha', 'image_captcha_actionlist_hook');
 		// Register actions to intercept
-		$actions = array();
-		$actions = trigger_plugin_hook('actionlist', 'captcha', null, $actions);
+		$actions = elgg_trigger_plugin_hook('actionlist', 'captcha', null, array());
 		
 		if (($actions) && (is_array($actions))) {
 			foreach ($actions as $action){
-				register_plugin_hook("action", $action, "image_captcha_verify_action_hook");
+				elgg_register_plugin_hook_handler("action", $action, "image_captcha_verify_action_hook");
 			}
 		}
 	}
@@ -24,8 +22,7 @@
 	 * @param unknown_type $returnvalue
 	 * @param unknown_type $params
 	 */
-	function image_captcha_verify_action_hook($hook, $entity_type, $returnvalue, $params)
-	{
+	function image_captcha_verify_action_hook($hook, $entity_type, $returnvalue, $params) {
 		$token = get_input('image_captcha');
 		if (($token) && ($token == $_SESSION["image_captcha"])){
 			return true;
@@ -55,10 +52,7 @@
 			
 		return $returnvalue;
 	}
-	
-	
 		
 	// register default elgg events
-	register_elgg_event_handler("init", "system", "image_captcha_init");
+	elgg_register_event_handler("init", "system", "image_captcha_init");
 	
-?>

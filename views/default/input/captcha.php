@@ -1,17 +1,28 @@
 <?php 
-
-	//$values = array('apple','strawberry','lemon','cherry','pear'); // image names 
-	$values     = array('house','folder','monitor','man','woman','lock','rss'); // image names -> for general theme
-	$imageExt = 'jpg'; // image extensions //
-	$imagePath = $vars["url"] . 'mod/image_captcha/_graphics/icons/general/'; // image path //  // images/general/ -> for general theme
-	$imageW = '35'; // icon width // 35 -> for general theme
-	$imageH = '35'; // icon height // 35 -> for general theme // 33 for fruit
+	
+	$icon_types = "general";
+	if($plugin_icon_types = elgg_get_plugin_setting("icon_types", "image_captcha")){
+		$icon_types = $plugin_icon_types;
+	}
+	
+	$imageW = '35';
+	
+	if($icon_types == "fruit"){
+		$values = array('apple','strawberry','lemon','cherry','pear');
+		$imageH = '33';
+	} else {
+		$values     = array('house','folder','monitor','man','woman','lock','rss');
+		$imageH = '35';
+	}
+	
+	$imageExt = 'jpg';
+	$imagePath = elgg_get_site_url() . 'mod/image_captcha/_graphics/icons/' . $icon_types . "/";
 	
 	$rand = mt_rand(0,(sizeof($values)-1));
 	
-	shuffle($values);
+	shuffle($values); // randomize icons on every reload
 	
-	$s3Capcha = "<label>" . sprintf(elgg_echo("image_captcha:label"), $values[$rand]) ."</label>";
+	$s3Capcha = "<label>" . elgg_echo("image_captcha:label", array(elgg_echo("image_captcha:icon_types:" . $icon_types . ":" . $values[$rand]))) ."</label>";
 	$s3Capcha .= "<div>";
 	
 	for($i=0; $i < sizeof($values); $i++){
