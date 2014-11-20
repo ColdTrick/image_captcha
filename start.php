@@ -7,6 +7,11 @@
 		// Register actions to intercept
 		$actions = elgg_trigger_plugin_hook('actionlist', 'captcha', null, array());
 		
+ 		elgg_define_js('s3capcha', array(
+			'src' => '/mod/image_captcha/vendors/s3capcha/s3capcha.js',
+			'exports' => 's3capcha',
+		));
+		
 		if (($actions) && (is_array($actions))) {
 			foreach ($actions as $action){
 				elgg_register_plugin_hook_handler("action", $action, "image_captcha_verify_action_hook");

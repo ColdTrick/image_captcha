@@ -1,4 +1,5 @@
 <?php 
+	elgg_require_js('image_captcha/captcha');
 	
 	$icon_types = "general";
 	if($plugin_icon_types = elgg_get_plugin_setting("icon_types", "image_captcha")){
@@ -43,7 +44,7 @@
 	$captcha_output = "<div id='image_captcha'>" . $s3Capcha . "</div>";
 
 	?>
-	<script type="text/javascript" src="<?php echo $vars["url"]; ?>mod/image_captcha/vendors/s3capcha/s3capcha.js"></script>
+
 	<?php echo $captcha_output; ?>
 	<div class="clearfloat"></div>
 	<style type="text/css">
@@ -58,9 +59,3 @@
 			height: <?php echo $imageH; ?>px;
 		}
 	</style>
-	
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('#image_captcha').s3Capcha();
-		});
-	</script>
