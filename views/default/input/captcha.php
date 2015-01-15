@@ -2,39 +2,57 @@
 	
 elgg_require_js('image_captcha/captcha');
 	
-$icon_types = "general";
-if($plugin_icon_types = elgg_get_plugin_setting("icon_types", "image_captcha")){
-	$icon_types = $plugin_icon_types;
-}
+$icon_types = elgg_get_plugin_setting("icon_types", "image_captcha", "general");
 
 $imageW = '35';
 
-if($icon_types == "fruit"){
-	$values = array('apple','strawberry','lemon','cherry','pear');
+if ($icon_types == "fruit") {
+	$values = array(
+		'apple',
+		'strawberry',
+		'lemon',
+		'cherry',
+		'pear'
+	);
 	$imageH = '33';
 } else {
-	$values     = array('house','folder','monitor','man','woman','lock','rss');
+	$values = array(
+		'house',
+		'folder',
+		'monitor',
+		'man',
+		'woman',
+		'lock',
+		'rss'
+	);
 	$imageH = '35';
 }
 
 $imageExt = 'jpg';
 $imagePath = elgg_get_site_url() . 'mod/image_captcha/_graphics/icons/' . $icon_types . "/";
 
-$rand = mt_rand(0,(sizeof($values)-1));
+$rand = mt_rand(0, (sizeof($values) - 1));
 
 shuffle($values); // randomize icons on every reload
 
-$s3Capcha = "<label>" . elgg_echo("image_captcha:label", array(elgg_echo("image_captcha:icon_types:" . $icon_types . ":" . $values[$rand]))) ."</label><br />";
+$s3Capcha = "<label>";
+$s3Capcha .= elgg_echo("image_captcha:label", array(
+	elgg_echo("image_captcha:icon_types:" . $icon_types . ":" . $values[$rand])
+));
+$s3Capcha .= "</label><br />";
+
 $s3Capcha .= "<div>";
 
-for($i=0; $i < sizeof($values); $i++){
-    $value2[$i] = mt_rand();
-    $image_url = $imagePath . $values[$i] . '.' . $imageExt;
-    
-    $s3Capcha .= "<div>";
-    $s3Capcha .= "<span>" . $values[$i] . " <input type='radio' name='image_captcha' value='" . $value2[$i] . "'></span>";
-    $s3Capcha .= "<div style='background: url(\"" . $image_url . "\") bottom left no-repeat;' class='img'></div>";
-    $s3Capcha .= "</div>";
+$value2 = array();
+
+for ($i = 0; $i < sizeof($values); $i++) {
+	$value2[$i] = mt_rand();
+	$image_url = $imagePath . $values[$i] . '.' . $imageExt;
+
+	$s3Capcha .= "<div>";
+	$s3Capcha .= "<span>" . $values[$i] . " <input type='radio' name='image_captcha' value='" . $value2[$i] . "'></span>";
+	$s3Capcha .= "<div style='background: url(\"" . $image_url . "\") bottom left no-repeat;' class='img'></div>";
+	$s3Capcha .= "</div>";
 }
 
 $s3Capcha .= "</div>";
@@ -42,11 +60,9 @@ $s3Capcha .= "</div>";
 // save in session
 $_SESSION['image_captcha'] = $value2[$rand];
 
-$captcha_output = "<div id='image_captcha'>" . $s3Capcha . "</div>";
+echo "<div id='image_captcha'>" . $s3Capcha . "</div>";
 
 ?>
-
-<?php echo $captcha_output; ?>
 <div class="clearfloat"></div>
 <style type="text/css">
 	#image_captcha div {

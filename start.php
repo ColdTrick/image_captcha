@@ -8,7 +8,7 @@
  * 
  * @return void
  */
-function image_captcha_init(){
+function image_captcha_init() {
 	elgg_define_js('s3capcha', array(
 		'src' => '/mod/image_captcha/vendors/s3capcha/s3capcha.js',
 		'exports' => 's3capcha',
