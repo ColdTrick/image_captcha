@@ -1,4 +1,7 @@
 <?php 
+/**
+ * Start file for the Image Captcha plugin
+ */
 
 /**
  * Initializes the captcha plugin
@@ -18,7 +21,7 @@ function image_captcha_init(){
 	$actions = elgg_trigger_plugin_hook('actionlist', 'captcha', null, array());
 
 	if (($actions) && (is_array($actions))) {
-		foreach ($actions as $action){
+		foreach ($actions as $action) {
 			elgg_register_plugin_hook_handler("action", $action, "image_captcha_verify_action_hook");
 		}
 	}
@@ -27,14 +30,16 @@ function image_captcha_init(){
 /**
  * Listen to the action plugin hook and check the captcha.
  *
- * @param unknown_type $hook
- * @param unknown_type $entity_type
- * @param unknown_type $returnvalue
- * @param unknown_type $params
+ * @param string $hook        name of the hook
+ * @param string $entity_type type of the hook
+ * @param array  $returnvalue current returnvalue
+ * @param array  $params      parameters
+ * 
+ * @return boolean
  */
 function image_captcha_verify_action_hook($hook, $entity_type, $returnvalue, $params) {
 	$token = get_input('image_captcha');
-	if (($token) && ($token == $_SESSION["image_captcha"])){
+	if (($token) && ($token == $_SESSION["image_captcha"])) {
 		return true;
 	} else {
 		register_error(elgg_echo('image_captcha:verify:fail'));
@@ -47,13 +52,15 @@ function image_captcha_verify_action_hook($hook, $entity_type, $returnvalue, $pa
  * This function returns an array of actions the captcha will expect a captcha for, other plugins may
  * add their own to this list thereby extending the use.
  *
- * @param unknown_type $hook
- * @param unknown_type $entity_type
- * @param unknown_type $returnvalue
- * @param unknown_type $params
+ * @param string $hook        name of the hook
+ * @param string $entity_type type of the hook
+ * @param array  $returnvalue current returnvalue
+ * @param array  $params      parameters
+ * 
+ * @return array
  */
-function image_captcha_actionlist_hook($hook, $entity_type, $returnvalue, $params){
-	if (!is_array($returnvalue)){
+function image_captcha_actionlist_hook($hook, $entity_type, $returnvalue, $params) {
+	if (!is_array($returnvalue)) {
 		$returnvalue = array();
 	}
 		
