@@ -3,14 +3,15 @@
 	<name>Image CAPTCHA</name>
 	<author>ColdTrick IT Solutions</author>
 	<version>2.0</version>
+	<id>image_captcha</id>
 	<description>Use images as a CAPTCHA mechanisme.</description>
 	<website>http://www.coldtrick.com/</website>
 	<copyright>(C) ColdTrick IT Solutions 2009 - 2012</copyright>
 	<license>GNU Public License version 2</license>
  	
  	<requires>
-		<type>elgg_version</type>
-		<version>2011061200</version>
+		<type>elgg_release</type>
+		<version>1.9</version>
 	</requires>
 	
 	<screenshot>
