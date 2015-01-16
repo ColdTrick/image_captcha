@@ -60,7 +60,7 @@ $s3Capcha .= "</div>";
 // save in session
 $_SESSION['image_captcha'] = $value2[$rand];
 
-echo "<div id='image_captcha'>" . $s3Capcha . "</div>";
+echo "<div id='image_captcha' class='mtm'>" . $s3Capcha . "</div>";
 
 ?>
 <div class="clearfloat"></div>
