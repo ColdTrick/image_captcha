@@ -1,7 +1,7 @@
-<?php 
-	
+<?php
+
 elgg_require_js('image_captcha/captcha');
-	
+
 $icon_types = elgg_get_plugin_setting("icon_types", "image_captcha", "general");
 
 $imageW = '35';
@@ -28,50 +28,59 @@ if ($icon_types == "fruit") {
 	$imageH = '35';
 }
 
-$imageExt = 'jpg';
 $imagePath = elgg_get_site_url() . 'mod/image_captcha/_graphics/icons/' . $icon_types . "/";
 
 $rand = mt_rand(0, (sizeof($values) - 1));
 
 shuffle($values); // randomize icons on every reload
 
-$s3Capcha = "<label>";
-$s3Capcha .= elgg_echo("image_captcha:label", array(
+$label = elgg_echo("image_captcha:label", array(
 	elgg_echo("image_captcha:icon_types:" . $icon_types . ":" . $values[$rand])
 ));
-$s3Capcha .= "</label><br />";
 
-$s3Capcha .= "<div>";
+$captcha = '';
 
-$value2 = array();
+$options = array();
 
 for ($i = 0; $i < sizeof($values); $i++) {
-	$value2[$i] = mt_rand();
-	$image_url = $imagePath . $values[$i] . '.' . $imageExt;
+	$name = $values[$i];
 
-	$s3Capcha .= "<div>";
-	$s3Capcha .= "<span>" . $values[$i] . " <input type='radio' name='image_captcha' value='" . $value2[$i] . "'></span>";
-	$s3Capcha .= "<div style='background: url(\"" . $image_url . "\") bottom left no-repeat;' class='img'></div>";
-	$s3Capcha .= "</div>";
+	$options[$i] = mt_rand();
+	$image_url = $imagePath . $name . '.jpg';
+
+	$radio = elgg_view('input/radio', array(
+		'name' => 'image_captcha',
+		'value' => $options[$i],
+		'options' => array($name => $options[$i]),
+	));
+
+	$icon = "<span style=\"background: url($image_url) bottom left no-repeat;\" class=\"img\"></span>";
+
+	$captcha .= "$icon<span>$radio</span>";
 }
 
-$s3Capcha .= "</div>";
-
 // save in session
-$_SESSION['image_captcha'] = $value2[$rand];
+$_SESSION['image_captcha'] = $options[$rand];
 
-echo "<div id='image_captcha' class='mtm'>" . $s3Capcha . "</div>";
+echo <<<FORM
+	<div id="image_captcha">
+		<label>$label</label><br />
+		<div>$captcha</div>
+		<div class="clearfloat"></div>
+	</div>
+FORM;
 
 ?>
-<div class="clearfloat"></div>
+
 <style type="text/css">
-	#image_captcha div {
-	    float: left;
-	}   
-	
+	#image_captcha {
+		margin: 15px 0;
+	}
+
 	#image_captcha .img {
-		cursor:pointer;
-		display:none;
+		float: left;
+		display: none;
+		cursor: pointer;
 		width: <?php echo $imageW; ?>px;
 		height: <?php echo $imageH; ?>px;
 	}
