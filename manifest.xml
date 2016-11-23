@@ -4,9 +4,9 @@
 	<author>ColdTrick IT Solutions</author>
 	<version>2.0</version>
 	<id>image_captcha</id>
-	<description>Use images as a CAPTCHA mechanisme.</description>
+	<description>Use images as a CAPTCHA mechanisme</description>
 	<website>http://www.coldtrick.com/</website>
-	<copyright>(C) ColdTrick IT Solutions 2009 - 2012</copyright>
+	<copyright>(C) ColdTrick IT Solutions 2009 - 2016</copyright>
 	<license>GNU Public License version 2</license>
  	
  	<requires>
