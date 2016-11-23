@@ -1,6 +1,22 @@
 Version history
 ===============
 
+3.0 (2016-11-23):
+
+- added: German translation
+- added: Finnish translations file
+- added: composer support
+- change: switched to markdown formatted readme
+- changed: coding style improvements
+- changed: rewrites inline <script> tags into AMD modules
+- changed: updated to 1.9 requirement because of the default plugin setting
+- fixed: added some margin to the top of the captcha label
+- fixed: breakline needed after label
+- fixed: codestyle and function docs
+- fixed: correct indentation
+- fixed: line endings
+- fixed: makes sure the registration form data is not lost when captcha fails
+
 2.0 (2012-01-26):
 
 - added: Dutch translation
