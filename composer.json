@@ -1,8 +1,21 @@
 {
     "name": "coldtrick/image_captcha",
+    "description": "Use images as a CAPTCHA mechanisme",
     "type": "elgg-plugin",
-    "require": {
-        "composer/installers": ">=1.0.8"
-    },
-    "license": "GPL-2.0"
+    "keywords": ["elgg", "plugin", "captcha"],
+	"license": "GPL-2.0",
+	"support": {
+		"source": "https://github.com/ColdTrick/image_captcha",
+		"issues": "https://github.com/ColdTrick/image_captcha/issues"
+	},
+	"require": {
+		"composer/installers": "^1.0.8"
+	},
+	"require-dev": {
+		"coldtrick/sniffs": "dev-master",
+		"coldtrick/releases": "dev-master"
+	},
+	"conflict": {
+		"elgg/elgg": "<1.9"
+	}
 }
